@@ -1,7 +1,7 @@
 # Django settings for tenant_tutorial project.
 import sys
 import os
-
+import environ
 
 DEBUG = True
 
@@ -18,16 +18,23 @@ PROJECT_DIR = os.path.join(BASE_DIR, os.pardir)
 TENANT_APPS_DIR = os.path.join(PROJECT_DIR, os.pardir)
 sys.path.insert(0, TENANT_APPS_DIR)
 
+
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+env = environ.Env()
+environ.Env.read_env()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',  # Add 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.environ.get('DATABASE_DB', 'tenant_tutorial'),
-        'USER': os.environ.get('DATABASE_USER', 'tenant_tutorial'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'qwerty'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

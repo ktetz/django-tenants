@@ -1,0 +1,13 @@
+{
+    "folders": [
+		{
+			"path": "tenant_tutorial"
+		},
+		{
+			"path": "tenant_subfolder_tutorial"
+		},
+		{
+			"path": "tenant_multi_types"
+		}
+	]
+}
